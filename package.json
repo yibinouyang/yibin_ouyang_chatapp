@@ -1,0 +1,24 @@
+{
+  "name": "yibin_ouyang_chatapp",
+  "version": "1.0.0",
+  "description": "A chat app --- this project is a chat app. It expands on the default functionality to include a notification message when a user joins or leaves the chat; use colour to differentiate between user messages and has user's own photo.",
+  "main": "app.js",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "hbs": "^4.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yibinouyang/yibin_ouyang_chatapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yibinouyang/yibin_ouyang_chatapp/issues"
+  },
+  "homepage": "https://github.com/yibinouyang/yibin_ouyang_chatapp#readme"
+}
