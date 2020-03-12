@@ -1,5 +1,5 @@
-# Xia_Y_ChatApp
-## Project Title
+# Yibin_OY_ChatApp
+## Chatapp
 
 A chat app --- this project is a chat app. It expands on the default functionality to include a notification message when a user joins or leaves the chat; use colour to differentiate between user messages and has user's own photo.
 
@@ -27,7 +27,7 @@ Developing environment:
 4. Vue.js
 
 ### License
-fanshawe.copyright
+MIT License
 
 ### Authors 
-* Yuchen Xia --- Developer
+* YibinOuyang --- Developer
