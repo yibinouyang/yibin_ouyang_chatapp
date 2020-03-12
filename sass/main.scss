@@ -18,7 +18,13 @@ main {
 	border: 6px solid #bfcfd6;
 	background-color: #e3edf1;
 
-	label { display: block; margin-bottom: 0.5rem; }
+	label {
+		display: block;
+		margin: {
+			top: 0.5rem;
+			bottom: 0.5rem;
+		}
+	}
 }
 
 .messages { 
@@ -27,7 +33,7 @@ main {
 	border: 6px solid #e2e0e0; 
 }
 
-input, textarea { 
+input, textarea, select { 
 	display: block; 
 	width: 100%;
 	border: 2px solid #bfcfd6;
@@ -40,7 +46,16 @@ input, textarea {
 
 textarea { height: 135px; }
 
-
+img.avatar-img {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	border: 5px solid #bfcfd6;
+	margin: {
+		top: 5px;
+	}
+}
 
 form {
 	//background: #000;

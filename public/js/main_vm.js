@@ -1,75 +1,79 @@
-// imports always go first - if we're importing anything
-import ChatMessage from "./modules/ChatMessage.js";
+import ChatMessage from './modules/ChatMessage.js';
+import {NewConnMessage, DisconnMessage} from './modules/NotificationMessage.js';
 
 const socket = io();
 
-// the packet is whatever data we sent through with the connect event
-// from the server
-
-// this is data destructing. Go look it up on MDN
-function setUserId({sID}) {
-    // debugger;
-    console.log(sID);
+function logConnect({sID, message}) { //{sID, message}
+    console.log(sID, message);
     vm.socketID = sID;
 }
 
-function showDisconnectMessage() {
-    console.log('a user disconnected');
-}
-
 function appendMessage(message) {
+    console.log('appending message');
+    // ensure the component is 'chatMessage'
+    message.type = 'chatMessage';
     vm.messages.push(message);
 }
 
-const vm = new Vue ({
-    data:{
-        socketID: "",
-        message: "",
-        nickname: "",
-        messages: []
-    },
-    // data: {
-    //     message:[
-    //         {
-    //             name: "TVR",
-    //             content:"hello"
-    //         },
+function appendNotification(message) {
+    console.log('appending notification');
+    // use message event string to
+    // determine the correct component
+    if (message.event === 'newConn') {
+        message.type = 'newConnMessage';
+    } else if (message.event === 'disconn') {
+        message.type = 'disconnMessage';
+    } else {
+        console.log(`unkown message type: ${message.type}`);
+        return;
+    }
+    vm.messages.push(message);
+}
 
-    //         {
-    //             name: "dd",
-    //             content:"ignore"
-    //         }
-            
-    //     ]
-    // },
+// create Vue instance
+const vm = new Vue({
+    data: {
+        socketID: "",
+        nickname: "",
+        avatar: { name: 'Anonymous', src: 'img/Anonymous.jpg'},
+        message: "",
+        messages: [],
+        avatars: [
+            { name: 'Anonymous', src: 'img/Anonymous.jpg'},
+            { name: 'Hawkeye', src: 'img/Hawkeye.jpg'},
+            { name: 'Spider Man', src: 'img/SpiderMan.jpg'},
+            { name: 'Scarlet Witch', src: 'img/ScarletWitch.jpg'},
+            { name: 'Black Widow', src: 'img/BlackWidow.jpg'},
+            { name: 'Black Panther', src: 'img/BlackPanther.jpg'},
+            { name: 'Iron Man', src: 'img/IronMan.jpg'},
+            { name: 'Captain America', src: 'img/CaptainAmerica.jpg'},
+            { name: 'Thor', src: 'img/Thor.jpg'},
+            { name: 'Hulk', src: 'img/Hulk.jpg'}
+        ]
+    },
 
     methods: {
-        // emit a message event to the server so that it can in 
-        // turn send this to anyone who's connected
         dispatchMessage() {
-            console.log('handle emit message');
-
-            // the double pipe || is an "or" operator
-            // if the first value is set, use it. else use
-            // whatever comes after the "or" operator
-            socket.emit('chat_message', {
+            // emit message event from the client side
+            socket.emit('chat message', {
                 content: this.message,
-                name: this.nickname || "anonymous"
-            })
+                name: this.nickname || "Anonymous",
+                avatar: this.avatar
+            });
 
+            // reset the message field
             this.message = "";
+
         }
     },
-
-    mouted: function() {
-        console.log('vue is done mounting');
-    },
-
     components: {
-        newmessage: ChatMessage
+        chatMessage: ChatMessage,
+        newConnMessage: NewConnMessage,
+        disconnMessage: DisconnMessage
     }
-}).$mount("#app");
+}).$mount(`#app`);
 
-socket.addEventListener('connected', setUserId);
-socket.addEventListener('disconnect', showDisconnectMessage);
-socket.addEventListener('new_message', appendMessage);
+socket.on('connected', logConnect);
+socket.addEventListener('chat message', appendMessage);
+socket.addEventListener('notification', appendNotification);
+socket.addEventListener('disconnect', appendMessage); // this one is optional

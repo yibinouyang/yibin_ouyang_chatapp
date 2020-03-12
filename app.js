@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
+var io = require('socket.io')();
+var rndColor = require('randomcolor');  // randomcolor package for generating random colors
 
-// add socket here
-const io = require('socket.io')();
 
 const port = process.env.PORT || 3030;
 
@@ -17,22 +17,58 @@ const server = app.listen(port, () => {
     console.log(`app is running on port ${port}`);
 });
 
-// attach our chat server to our app
+// global object to hold all mappings: (socket.id => color-in-rgba-format)
+const colorMap = {};
+
 io.attach(server);
 
-io.on('connection', function(socket){ // socket is your connection
-    console.log(' a user has connected');
-    socket.emit('connected',{ sID: socket.id, message:"new connection" });
+io.on('connection', function(socket) {
+    console.log('a user has connected');
 
-    socket.on('chat_message', function(msg){
-        console.log(msg);// let's see what the payload is from the client side
+    // create a random color for the new connected socket.id
+    colorMap[socket.id] = rndColor({
+        luminosity: 'dark',
+        format: 'rgba',
+        alpha: 0.75
+    });
 
-        // tell the connection manager (socket.io) to send this message to everyone
-        // anyone connected to our chat app will get this message(including the sender)
-        io.emit('new_message', { id: socket.id, message: msg })
-    })
+    socket.emit('connected', {
+        sID: `${socket.id}`,
+        message: `new connection: ${socket.id}`
+    });
 
-    socket.on('disconnect', function(){
+    // on new connection, emit a new notification to everyone connected to the app
+    // socket.id and the corresponding color are included
+    io.emit('notification', {
+        id: `${socket.id}`,
+        color: colorMap[socket.id],
+        event: 'newConn'
+    });
+
+    // listen for an incoming message from anyone connected to the app
+    socket.on('chat message', function(msg) {
+        console.log('message: ', msg, 'socket:', socket.id);
+
+        // send the message to everyone connected to the app
+        io.emit('chat message', {
+            id: `${socket.id}`,
+            color: colorMap[socket.id],
+            message: msg
+        });
+    });
+
+    // on disconnection, emit a new notification to everyone connected to the app
+    // socket.id and the corresponding color are included
+    socket.on('disconnect', function() {
         console.log('a user has disconnected');
-    })
-})
+
+        io.emit('notification', {
+            id: `${socket.id}`,
+            color: colorMap[socket.id],
+            event: 'disconn'
+        });
+
+        // remove the previously-created random color for the disconnected socket.id
+        delete colorMap[socket.id];
+    });
+});
