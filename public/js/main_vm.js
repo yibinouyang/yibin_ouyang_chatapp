@@ -40,15 +40,15 @@ const vm = new Vue({
         messages: [],
         avatars: [
             { name: 'Anonymous', src: 'img/Anonymous.jpg'},
-            { name: 'Hawkeye', src: 'img/Hawkeye.jpg'},
-            { name: 'Spider Man', src: 'img/SpiderMan.jpg'},
-            { name: 'Scarlet Witch', src: 'img/ScarletWitch.jpg'},
-            { name: 'Black Widow', src: 'img/BlackWidow.jpg'},
-            { name: 'Black Panther', src: 'img/BlackPanther.jpg'},
-            { name: 'Iron Man', src: 'img/IronMan.jpg'},
-            { name: 'Captain America', src: 'img/CaptainAmerica.jpg'},
-            { name: 'Thor', src: 'img/Thor.jpg'},
-            { name: 'Hulk', src: 'img/Hulk.jpg'}
+            { name: 'Blue One', src: 'img/BlueOne.jpg'},
+            { name: 'Green One', src: 'img/GreenOne.jpg'},
+            { name: 'Yellow One', src: 'img/YellowOne.jpg'},
+            { name: 'Purple One', src: 'img/PurpleOne.jpg'},
+            { name: 'Red Brother', src: 'img/RedBrother.jpg'},
+            { name: 'Orange One', src: 'img/OrangeOne.jpg'},
+            { name: 'White One', src: 'img/WhiteOne.jpg'},
+            { name: 'Black One', src: 'img/BlackOne.jpg'},
+            { name: 'Skyblue One', src: 'img/SkyblueOne.jpg'}
         ]
     },
 
