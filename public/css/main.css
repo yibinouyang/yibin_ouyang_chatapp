@@ -20,8 +20,8 @@ main {
 
 .form-container {
   flex: 1;
-  border: 6px solid #356a80;
-  background-color: #afe0f4; }
+  border: 6px solid #40748a;
+  background-color: #cbecf9; }
   .form-container label {
     display: block;
     margin-top: 0.5rem;
@@ -29,8 +29,8 @@ main {
 
 .messages {
   flex: 2;
-  background-color: rgb(255, 255, 255);
-  border: 8px solid #ebeb0e; }
+  background: linear-gradient(rgb(255, 254, 235), rgb(249, 228, 114));
+  border: 6px solid #aaaaab; }
 
 input, textarea, select {
   display: block;
