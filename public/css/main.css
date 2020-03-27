@@ -29,13 +29,13 @@ main {
 
 .messages {
   flex: 2;
-  background: linear-gradient(rgb(255, 254, 235), rgb(249, 228, 114));
-  border: 6px solid #aaaaab; }
+  background-color: #61bfad;
+  border: 6px solid #ffffff; }
 
 input, textarea, select {
   display: block;
   width: 100%;
-  border: 6px solid #48a3cb;
+  border: 6px solid #61bfad;
   border-radius: 4px;
   font-size: 0.8rem;
   padding: 0.4rem;
@@ -49,7 +49,7 @@ img.avatar-img {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 5px solid #bfcfd6;
+  border: 5px solid #61bfad;
   margin-top: 5px; }
 
 form {
